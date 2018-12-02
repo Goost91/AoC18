@@ -1,0 +1,7 @@
+[package]
+name = "AoC18"
+version = "0.1.0"
+authors = ["Goost91 (https://github.com/Goost91)"]
+
+[dependencies]
+levenshtein = "1.0.3"
