@@ -3,6 +3,7 @@ use std::io::BufReader;
 use std::io::BufRead;
 use std::env;
 use core::borrow::Borrow;
+use std::collections::HashSet;
 
 pub fn part1() {
     let input = BufReader::new(File::open("input/day01a").unwrap()).lines();
@@ -14,7 +15,7 @@ pub fn part2() {
     let input = BufReader::new(File::open("input/day01a").unwrap()).lines();
     let values: Vec<String> = input.into_iter().map(|a| a.unwrap()).collect();
 
-    let mut values_reached = Vec::new();
+    let mut values_reached = HashSet::new();
     let mut acc = 0;
 
     loop {
@@ -23,7 +24,7 @@ pub fn part2() {
                 println!("{} reached twice first", acc);
                 return;
             } else {
-                values_reached.push(acc);
+                values_reached.insert(acc);
             }
             acc += line.parse::<i32>().unwrap();
         }

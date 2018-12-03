@@ -8,7 +8,6 @@ use std::collections::HashMap;
 
 pub fn part1() {
     let input = BufReader::new(File::open("input/day02a").unwrap()).lines();
-    //let input = vec!["abcdef", "bababc", "abbcde", "abcccd", "aabcdd", "abcdee", "ababab"];
 
     let mut twice = 0;
     let mut thrice = 0;
@@ -17,12 +16,7 @@ pub fn part1() {
         let mut letters: HashMap<char, i32> = HashMap::new();
 
         for c in line.chars().into_iter() {
-            if letters.contains_key(c.borrow()) {
-                let val = letters.get_mut(c.borrow()).unwrap();
-                *val += 1;
-            } else {
-                letters.insert(c, 1);
-            }
+            *letters.entry(c).or_insert(1) += 1;
         }
 
         twice += if letters.iter().any(|l| *l.1 == 2) { 1 } else { 0 };
@@ -38,7 +32,7 @@ pub fn part2() {
 
     for line in input.map(|a| a.unwrap()) {
         for word in words.iter() {
-            if levenshtein(word.as_str(), line.as_ref()) == 1 {
+            if levenshtein(word.as_str(), line.as_str()) == 1 {
                 for c in line.chars().zip(word.chars()).into_iter() {
                     if c.0 == c.1 {
                         print!("{}", c.0);
